@@ -1,2 +1,5 @@
 archive
 cmake-build-debug
+cmake-build-relwithdebinfo
+cmake-build-sanitizers
+cmake-build-release
