@@ -448,8 +448,7 @@ int get_backup_label(const std::vector<int>& new_labels,
     return -1;
 }
 
-std::vector<int> reassign_labels(const cv::Mat& lab, const std::vector<int>& labels, const int &K) {
-    int width = lab.cols, height = lab.rows;
+std::vector<int> reassign_labels(int width, int height, const std::vector<int>& labels, const int &K) {
     int N = width * height;
     double threshold = static_cast<double>(N) / (4.0 * K);
     std::vector<int> segment;
@@ -522,6 +521,6 @@ std::vector<int> reassign_labels(const cv::Mat& lab, const std::vector<int>& lab
 
 std::vector<int> SLIC_parallel(const cv::Mat& lab, const int &K) {
     std::vector<int> labels = find_clusters_parallel(lab, K);
-    std::vector<int> new_labels = reassign_labels(lab, labels, K);
+    std::vector<int> new_labels = reassign_labels(lab.cols, lab.rows, labels, K);
     return new_labels;
 }

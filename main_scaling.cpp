@@ -24,7 +24,7 @@ std::vector<double> get_time_SLIC_sequential_separated(const cv::Mat& img, const
     times.push_back(std::chrono::duration<double, std::milli>(t1 - t0).count());
 
     t0 = std::chrono::steady_clock::now();
-    std::vector<int> new_labels = reassign_labels(lab, labels, K);
+    std::vector<int> new_labels = reassign_labels(lab.cols, lab.rows, labels, K);
     t1 = std::chrono::steady_clock::now();
     times.push_back(std::chrono::duration<double, std::milli>(t1 - t0).count());
 
@@ -54,7 +54,7 @@ std::vector<double> get_time_SLIC_parallel_separated(const cv::Mat& img, const i
     times.push_back(std::chrono::duration<double, std::milli>(t1 - t0).count());
 
     t0 = std::chrono::steady_clock::now();
-    std::vector<int> new_labels = reassign_labels(lab, labels, K);
+    std::vector<int> new_labels = reassign_labels(lab.cols, lab.rows, labels, K);
     t1 = std::chrono::steady_clock::now();
     times.push_back(std::chrono::duration<double, std::milli>(t1 - t0).count());
 
@@ -92,11 +92,11 @@ std::vector<double> average_times(
 
 int main() {
     setenv("OMP_DISPLAY_ENV", "TRUE", 0);
-    const std::string base     = PROJECT_DIR;
+    const std::string base = PROJECT_DIR;
     const std::string img_name = "22090";
-    const std::string path     = base + "/archive/images/train/" + img_name + ".jpg";
-    const int K           = 500;
-    const int RUNS        = 10;
+    const std::string path = base + "/archive/images/train/" + img_name + ".jpg";
+    const int K = 500;
+    const int RUNS = 10;
     const int MAX_THREADS = 256;
 
     cv::Mat img = cv::imread(path);

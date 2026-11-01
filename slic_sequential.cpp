@@ -194,6 +194,6 @@ std::vector<int> find_clusters(const cv::Mat& lab, const int &K, const int &m) {
 
 std::vector<int> SLIC_sequential(const cv::Mat& lab, const int &K) {
     std::vector<int> labels = find_clusters(lab, K);
-    std::vector<int> new_labels = reassign_labels(lab, labels, K);
+    std::vector<int> new_labels = reassign_labels(lab.cols, lab.rows, labels, K);
     return new_labels;
 }
